@@ -1,0 +1,100 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.dll
+*.lib
+*.sbr
+
+# red
+*.FileListAbsolute
+*.lock
+*.ide
+*.webinfo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*_i.h
+*.meta
+*.iobj
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.tli
+*.tmp
+*.tmp_proj
+*.vssscc
+*.builds
+*.pidb
+*.svclog
+*.scc
+
+# Visual C++ cache files
+ipch/
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+# Visual Studio 2017 auto generated files
+Generated\ Files/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUNIT
+*.VisualState.xml
+TestResult.xml
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Unity generated
+Temp/
+Library/
