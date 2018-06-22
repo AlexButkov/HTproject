@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Methods : MonoBehaviour
 {
@@ -12,9 +13,24 @@ public class Methods : MonoBehaviour
     public GameObject SpireSample;
     public GameObject RingSample;
     [Space(8)]
-    [Range(0, 500)]
-    public float Speed = 15;
-    public float SpeedMult = 1;
+    public GameObject UiSpeed;
+    public InputField UiInput;
+    public GameObject UiOutput;
+    public GameObject UiStart;
+    public GameObject UiEnd;
+
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            SpText.text = Math.Round(value).ToString();
+            speed = value * RingsQuant;
+        }
+    }
     public int RingsQuant
     {
         get
@@ -36,51 +52,67 @@ public class Methods : MonoBehaviour
 
 
     //----
-    [SerializeField]
+    [SerializeField, Space(8)]
     private float scaleMult = 0.5f;
     private const int spiresQuant = 3;
     private GameObject[] bases = new GameObject[spiresQuant];
-    private string warning = "This value can not be changed!";
+    private string warning = "Длина этого массива должна быть равна трём!";
+    private string message = "преобразование не удалось,\n попробуйте снова...";
     private readonly List<GameObject> Rings = new List<GameObject>();
     private readonly float waitDivider = 5;
     private Vector3 scaleVector = new Vector3(1,0,1);
-    private int ringsQuant;
+    private int ringsQuant = 0 ;
+    private float speed = 20;
+    private Text SpText;
+    private Text OutText;
     #endregion
-
-    // Use this for initialization
-    IEnumerator Start()
-    {
-        for (int i = 0; i < bases.Length; i++)
-        {
-            bases[i] = Instantiate(BaseSample);
-        }
-        RingsQuant = 10;
-        yield return new WaitForSeconds(1);
-        RingsQuant = 5;
-        yield return new WaitForSeconds(1);
-        RingsQuant = 15;
-        yield return new WaitForSeconds(1);
-        RingsQuant = 8;
-
-        Invoke("Starter", 0.5f);
-    }
-
-    /*// Update is called once per frame
-    void Update()
-    {
-        
-    }*/
-
+    
     public void Restarter()
     {
+        StartCoroutine(Restart());
     }
-
 
     public void Starter()
     {
-        StartCoroutine(SetMoving(0, Spires[0], Spires[2], Spires[1]));
+        StartCoroutine(MovingHandler());
+    }
+
+    public void CheckString()
+    {
+        int buffer;
+        try
+        {
+            buffer = Convert.ToInt32(UiInput.text);
+            if (buffer < 0)
+            {
+                throw new Exception();
+            }
+            else
+            {
+                RingsQuant = buffer;
+            }
+        }
+        catch (Exception)
+        {
+            UiInput.text = "";
+            OutText.text = message;
+        }
     }
     //---
+    // Use this for initialization
+    void Start()
+    {
+        SpText = UiSpeed.GetComponent<Text>();
+        OutText = UiOutput.GetComponent<Text>();
+        UiStart.SetActive(true);
+        UiEnd.SetActive(false);
+        //---
+        for (int i = 0; i < bases.Length; i++)
+        {
+            bases[i] = Instantiate(BaseSample,Vector3.down*2,Quaternion.Euler(Vector3.zero));
+        }
+    }
+
     private void OnValidate()
     {
         if (Spires.Length != spiresQuant)
@@ -134,7 +166,7 @@ public class Methods : MonoBehaviour
         Vector3 basePosition = Spires[1].transform.parent.position;
         for (int i = 0; i < spiresQuant; i++)
         {
-            if (RingsQuant > 1)
+            if (RingsQuant >= 1)
             {
                 switch (i)
                 {
@@ -153,6 +185,12 @@ public class Methods : MonoBehaviour
             }
         }
         yield break;
+    }
+
+    private IEnumerator MovingHandler()
+    {
+        yield return StartCoroutine(SetMoving(0, Spires[0], Spires[2], Spires[1]));
+        UiEnd.SetActive(true);
     }
 
     private IEnumerator SetMoving(int number, GameObject source, GameObject target, GameObject buffer)
