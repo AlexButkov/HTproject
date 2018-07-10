@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CameraDamp : MonoBehaviour
+public class CameraDamper : MonoBehaviour
 {
+    #region ==== Fields ====
     public float upMult = 0.5f;
     public float backMult = 1f;
     public float dampTime = 0.15f;
@@ -11,7 +12,8 @@ public class CameraDamp : MonoBehaviour
     //----
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetVector;
-
+    #endregion
+    #region ==== Methods ====
     void Update()
     {
         if (Target != null)
@@ -20,4 +22,5 @@ public class CameraDamp : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, targetVector, ref velocity, dampTime);
         }
     }
+    #endregion
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Methods : MonoBehaviour
+public class MainController : MonoBehaviour
 {
     #region ==== Fields ====
     //----public----
@@ -19,17 +19,9 @@ public class Methods : MonoBehaviour
     public GameObject SpireSample;
     /// <summary>(префаб диска)</summary>
     public GameObject RingSample;
-    /// <summary>(UI элемент для вывода скорости)</summary>
     [Space(8)]
-    public GameObject UiSpeed;
-    /// <summary>(UI элемент для ввода)</summary>
-    public InputField UiInput;
-    /// <summary>(UI элемент для вывода)</summary>
-    public GameObject UiOutput;
-    /// <summary>(начальный UI элемент)</summary>
-    public GameObject UiStart;
-    /// <summary>(конечный UI элемент)</summary>
-    public GameObject UiEnd;
+    /// <summary>(UI GameObject)</summary>
+    public GameObject UIObj;
     /// <summary>(скорость движения)</summary>
     public float Speed
     {
@@ -68,15 +60,15 @@ public class Methods : MonoBehaviour
     private float scaleMult = 0.5f;
     private const int spiresQuant = 3;
     private GameObject[] bases = new GameObject[spiresQuant];
-    private string warning = "Длина этого массива должна быть равна трём!";
-    private string message = "преобразование не удалось,\n попробуйте снова...";
+    private readonly string warning = "Длина этого массива должна быть равна трём!";
     private readonly List<GameObject> Rings = new List<GameObject>();
     private Vector3 scaleVector = new Vector3(1,0,1);
     private int ringsQuant = 0 ;
     private float speed;
-    private float startSpeed = 10;
+    private readonly float startSpeed = 10;
     private Text SpText;
-    private Text OutText;
+    private UIController UC;
+
     private bool isReady;
     #endregion
     #region ==== Methods ====
@@ -97,40 +89,13 @@ public class Methods : MonoBehaviour
     {
         StartCoroutine(MovingHandler());
     }
-
-    /// <summary>
-    /// (проверяет строку введенную пользователем)
-    /// </summary>
-    public void CheckString()
-    {
-        int buffer;
-        try
-        {
-            buffer = Convert.ToInt32(UiInput.text);
-            if (buffer < 0)
-            {
-                throw new Exception();
-            }
-            else
-            {
-                RingsQuant = buffer;
-            }
-        }
-        catch (Exception)
-        {
-            UiInput.text = "";
-            OutText.text = message;
-        }
-    }
     #endregion
     #region ~~~~ MonoBehaviour ~~~~
     //----private----
     private void Start()
     {
-        SpText = UiSpeed.GetComponent<Text>();
-        OutText = UiOutput.GetComponent<Text>();
-        UiStart.SetActive(true);
-        UiEnd.SetActive(false);
+        UC = UIObj.GetComponent<UIController>(); 
+        SpText = UC.Speed.GetComponent<Text>();
         //---
         for (int i = 0; i < bases.Length; i++)
         {
@@ -224,7 +189,7 @@ public class Methods : MonoBehaviour
     #endregion
     #region ~~~~ Move Objects ~~~~
     /// <summary>
-    /// (при возможности запускает корутину <see cref="SetMoving"/> и по завершению активирует <see cref="UiEnd"/>)
+    /// (при возможности запускает корутину <see cref="SetMoving"/> и по завершению активирует <see cref="UIController.OnEnd"/>)
     /// </summary>
     private IEnumerator MovingHandler()
     {
@@ -234,7 +199,7 @@ public class Methods : MonoBehaviour
         }
         speed = RingsQuant * startSpeed;
         yield return StartCoroutine(SetMoving(Spires[0], Spires[2], Spires[1]));
-        UiEnd.SetActive(true);
+        UC.OnEnd.SetActive(true);
     }
 
     /// <summary>

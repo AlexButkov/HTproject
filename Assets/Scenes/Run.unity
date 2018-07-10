@@ -1060,6 +1060,58 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 632705586}
+--- !u!1 &927321016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 927321017}
+  - component: {fileID: 927321018}
+  m_Layer: 5
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &927321017
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927321016}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1744694129}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 387, y: 204.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927321018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927321016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74adaf3a31a26464db17de6dff090795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainObj: {fileID: 1064452263}
+  Speed: {fileID: 1834291340}
+  Input: {fileID: 1938180543}
+  Output: {fileID: 561934108}
+  OnStart: {fileID: 259046138}
+  OnEnd: {fileID: 422261323}
 --- !u!1 &971327419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1261,7 @@ MonoBehaviour:
   SpireSample: {fileID: 1255756223348784, guid: 3307908aa142048bdac19627dd89e956,
     type: 2}
   RingSample: {fileID: 1255756223348784, guid: f4d2583a3c8e8e24987e77362989da50, type: 2}
+  UIObj: {fileID: 927321016}
   UiSpeed: {fileID: 1834291340}
   UiInput: {fileID: 1938180543}
   UiOutput: {fileID: 561934108}
@@ -1675,7 +1728,7 @@ GameObject:
   - component: {fileID: 1400660043}
   - component: {fileID: 1400660042}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Parent Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1864,8 +1917,8 @@ RectTransform:
   - {fileID: 1166356656}
   - {fileID: 259046139}
   - {fileID: 422261326}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 927321017}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2112,7 +2165,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1064452265}
+      - m_Target: {fileID: 927321018}
         m_MethodName: CheckString
         m_Mode: 1
         m_Arguments:
