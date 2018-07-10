@@ -32,7 +32,6 @@ Thumbs.db
 *.sln.docstates
 *.userprefs
 *_i.h
-*.meta
 *.iobj
 *.ipdb
 *.pgc
@@ -98,3 +97,5 @@ TestResult.xml
 # Unity generated
 Temp/
 Library/
+# include meta files
+!*.*.meta
