@@ -97,5 +97,6 @@ TestResult.xml
 # Unity generated
 Temp/
 Library/
-# include meta files
+# include files
 !*.*.meta
+!*.obj
